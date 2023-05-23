@@ -1,0 +1,50 @@
+{
+    "name": "shuvroroy/nova-tabs",
+    "description": "A tool for Laravel Nova which allows you to create tabs in your resource detail & form page.",
+    "keywords": [
+        "laravel",
+        "nova"
+    ],
+    "authors": [
+        {
+            "name": "Shuvro Roy",
+            "email": "shuvro.nsu.cse@gmail.com"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^8.1",
+        "laravel/nova": "^4.12"
+    },
+    "autoload": {
+        "psr-4": {
+            "ShuvroRoy\\NovaTabs\\": "src/",
+            "ShuvroRoy\\NovaTabs\\Tests\\": "tests/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ShuvroRoy\\NovaTabs\\TabsServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "build": [
+            "npm --prefix './vendor/laravel/nova/' ci",
+            "npm ci",
+            "TAILWIND_MODE=build npm run prod"
+        ]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

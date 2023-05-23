@@ -1,0 +1,18 @@
+@tailwind components;
+@tailwind utilities;
+
+.tab-group .tab h1 {
+    @apply hidden;
+}
+.tab-has-error:after {
+    content: ' *';
+}
+.tab-has-error {
+    color: rgba(var(--colors-red-500)) !important;
+}
+.border-b-primary-500 {
+    border-bottom-color: rgba(var(--colors-primary-500));
+}
+.text-primary-500 {
+    color: rgba(var(--colors-primary-500));
+}
