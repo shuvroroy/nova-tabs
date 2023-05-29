@@ -33,7 +33,6 @@ composer require shuvroroy/nova-tabs
 You can group fields of a resource into tabs.
 
 ```php
-// in app/Nova/User.php
 
 use App\Nova\Resource;
 use Laravel\Nova\Fields\Avatar;
@@ -152,7 +151,6 @@ class User extends Resource
 If your Model uses the `Laravel\Nova\Actions\Actionable` Trait you can put the Actions into a Tab like this:
 
 ```php
-// in app/Nova/Resource.php
 
 use Eminiarts\Tabs\Tabs;
 use Eminiarts\Tabs\Tab;
