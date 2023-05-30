@@ -33,6 +33,7 @@ composer require shuvroroy/nova-tabs
 You can group fields of a resource into tabs.
 
 ```php
+<?php
 
 use App\Nova\Resource;
 use Laravel\Nova\Fields\Avatar;
@@ -117,6 +118,7 @@ The first tab in every `Tabs` instance will be auto-selected.
 ### Combine Fields and Relations in Tabs
 
 ```php
+<?php
 
 use ShuvroRoy\NovaTabs\Tab;
 use ShuvroRoy\NovaTabs\Tabs;
@@ -142,43 +144,6 @@ class User extends Resource
                   ])->showHeadingForRelationships(['invoices']),
               ]),
          ];
-    }
-}
-```
-
-### Actions in Tabs
-
-If your Model uses the `Laravel\Nova\Actions\Actionable` Trait you can put the Actions into a Tab like this:
-
-```php
-
-use Eminiarts\Tabs\Tabs;
-use Eminiarts\Tabs\Tab;
-use Eminiarts\Tabs\Traits\HasTabs;
-use Eminiarts\Tabs\Traits\HasActionsInTabs; // Add this Trait
-use Laravel\Nova\Actions\ActionResource; // Import the Resource
-
-class Client extends Resource
-{
-    use HasTabs;
-    use HasActionsInTabs; // Use this Trait
-
-    public function fields(Request $request)
-    {
-        return [
-            Tabs::make('Client Custom Details', [
-                Tab::make('Address', [
-                    ID::make('Id', 'id'),
-                    Text::make('Name', 'name')->hideFromDetail(),
-                ]),
-                Tab::make('Invoices', [
-                    HasMany::make('Invoices'),
-                ]),
-                Tab::make('Actions', [
-                    $this->actionfield(), // Add Actions whererver you like.
-                ]),
-            ]),
-        ];
     }
 }
 ```
