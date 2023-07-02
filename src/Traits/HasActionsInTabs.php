@@ -11,11 +11,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 trait HasActionsInTabs
 {
-    /**
-     * @param  NovaRequest  $request
-     * @return mixed
-     */
-    public function detailFields(NovaRequest $request)
+    public function detailFields(NovaRequest $request): mixed
     {
         return $this->availableFields($request)
             ->when($request->viaRelationship(), $this->fieldResolverCallback($request))

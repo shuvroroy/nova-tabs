@@ -31,12 +31,13 @@ class Tab implements TabContract, JsonSerializable, Arrayable
     /** @var bool|Closure|null */
     protected $showUnless;
 
+    /** @var int */
     protected $position;
 
     /** @var array */
     protected $relationshipAttributeVisibility = [];
 
-    public function __construct($title, array $fields, $position = 0)
+    public function __construct($title, array $fields, int $position = 0)
     {
         $this->title = $title;
         $this->fields = $fields;
@@ -69,7 +70,7 @@ class Tab implements TabContract, JsonSerializable, Arrayable
         return $this;
     }
 
-    public function showIf($condition): self
+    public function showIf(bool|Closure $condition): self
     {
         if (is_bool($condition) || is_callable($condition)) {
             $this->showIf = $condition;
@@ -80,7 +81,7 @@ class Tab implements TabContract, JsonSerializable, Arrayable
         throw new InvalidArgumentException('The $condition parameter must be a boolean or a closure returning one');
     }
 
-    public function showUnless($condition): self
+    public function showUnless(bool|Closure $condition): self
     {
         if (is_bool($condition) || is_callable($condition)) {
             $this->showUnless = $condition;
@@ -91,35 +92,11 @@ class Tab implements TabContract, JsonSerializable, Arrayable
         throw new InvalidArgumentException('The $condition parameter must be a boolean or a closure returning one');
     }
 
-    public function jsonSerialize(): array
-    {
-        return $this->toArray();
-    }
-
-    public function toArray(): array
-    {
-        return [
-            'position' => $this->getPosition(),
-            'title' => $this->getTitle(),
-            'fields' => $this->getFields(),
-            'name' => $this->getName(),
-            'slug' => $this->getSlug(),
-            'shouldShow' => $this->shouldShow(),
-            'headingVisibilityForRelationshipAttributes' => $this->getHeadingVisibilityForRelationshipAttributes(),
-        ];
-    }
-
-    /**
-     * @return Closure|string
-     */
     public function getPosition(): int
     {
         return $this->position;
     }
 
-    /**
-     * @return Closure|string
-     */
     public function getTitle(): string
     {
         return (string) $this->resolve($this->title);
@@ -134,9 +111,6 @@ class Tab implements TabContract, JsonSerializable, Arrayable
         return $value;
     }
 
-    /**
-     * @return Field[]
-     */
     public function getFields(): array
     {
         return $this->fields;
@@ -168,5 +142,23 @@ class Tab implements TabContract, JsonSerializable, Arrayable
     public function getHeadingVisibilityForRelationshipAttributes(): array
     {
         return $this->relationshipAttributeVisibility;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return $this->toArray();
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'position' => $this->getPosition(),
+            'title' => $this->getTitle(),
+            'fields' => $this->getFields(),
+            'name' => $this->getName(),
+            'slug' => $this->getSlug(),
+            'shouldShow' => $this->shouldShow(),
+            'headingVisibilityForRelationshipAttributes' => $this->getHeadingVisibilityForRelationshipAttributes(),
+        ];
     }
 }

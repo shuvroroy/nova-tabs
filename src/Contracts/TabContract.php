@@ -31,7 +31,7 @@ interface TabContract
      *
      * @return $this
      */
-    public function showIf($condition);
+    public function showIf(bool|Closure $condition);
 
     /**
      * A boolean or function that returns a boolean
@@ -44,7 +44,7 @@ interface TabContract
      *
      * @return $this
      */
-    public function showUnless($condition);
+    public function showUnless(bool|Closure $condition);
 
     /**
      * Array representation of the tab

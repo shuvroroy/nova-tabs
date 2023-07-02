@@ -14,8 +14,6 @@ use Laravel\Nova\Panel;
 trait HasTabs
 {
     /**
-     * Resolve available panels from fields.
-     *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @param  \Laravel\Nova\Fields\FieldCollection<int, \Laravel\Nova\Fields\Field>  $fields
      * @param  string  $label
@@ -83,8 +81,6 @@ trait HasTabs
     }
 
     /**
-     * Return the panels for this request with the default label.
-     *
      * @param  \Illuminate\Support\Collection<int, \Laravel\Nova\Panel>  $panels
      * @param  \Laravel\Nova\Fields\FieldCollection<int, \Laravel\Nova\Fields\Field>  $fields
      * @param  string  $label

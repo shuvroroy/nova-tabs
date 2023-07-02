@@ -17,30 +17,22 @@ use function is_callable;
 
 class Tabs extends Panel
 {
-    /**
-     * @var mixed
-     */
-    public $defaultSearch = false;
+    public bool $defaultSearch = false;
 
-    /**
-     * @var bool
-     */
     public bool $showTitle = false;
 
-    /**
-     * @var bool
-     */
     public bool $selectFirstTab = true;
 
     private int $tabsCount = 0;
 
-    public $slug = null;
+    public ?string $slug = null;
 
     private string $preservedName;
 
     public bool $retainTabPosition = false;
 
-    public $currentColor = null;
+    public ?string $currentColor = null;
+
     public string $errorColor = 'red';
 
     /**
@@ -59,28 +51,14 @@ class Tabs extends Panel
         parent::__construct($name, $fields);
     }
 
-
-    /**
-     * Set the tabs slug.
-     *
-     * @param  string|boolean $slug
-     * @return $this
-     */
-    public function withSlug($slug): Tabs
+    public function withSlug(string|bool $slug): self
     {
-
         $this->slug = is_bool($slug) ? ($slug ? Str::slug($this->preservedName, '_') : null) : $slug;
 
         return $this;
     }
 
-    /**
-     * Set the color for current tabs.
-     *
-     * @param string $color
-     * @return $this
-     */
-    public function withCurrentColor(string $color): Tabs
+    public function withCurrentColor(string $color): self
     {
 
         $this->currentColor = $color;
@@ -88,13 +66,7 @@ class Tabs extends Panel
         return $this;
     }
 
-    /**
-     * Set the color for tabs with errors.
-     *
-     * @param  string $color
-     * @return $this
-     */
-    public function withErrorColor(string $color): Tabs
+    public function withErrorColor(string $color): self
     {
 
         $this->errorColor = $color;
@@ -102,23 +74,16 @@ class Tabs extends Panel
         return $this;
     }
 
-    /**
-     * Remember tab position across detail/edit
-     *
-     * @param  Boolean $retain
-     * @return $this
-     */
-    public function rememberTabs($retain): Tabs
+    public function rememberTabs(bool $retain): self
     {
         $this->retainTabPosition = $retain;
+
         return $this;
     }
 
     /**
-     * Prepare the given fields.
-     *
-     * @param  Closure|array  $fields
-     * @return array
+     * @param  (\Closure():(object))|object  $fields
+     * @return array<int, \Laravel\Nova\Fields\Field>
      */
     protected function prepareFields($fields): array
     {
@@ -135,8 +100,8 @@ class Tabs extends Panel
     }
 
     /**
-     * @param $fields
-     * @return Collection<TabContract>
+     * @param  (\Closure():(object))|object  $fields
+     * @return Collection
      */
     private function convertFieldsToTabs($fields): Collection
     {
@@ -149,12 +114,7 @@ class Tabs extends Panel
         })->values();
     }
 
-    /**
-     * @param  mixed  $fields
-     * @param  string|int  $key
-     * @return Tab
-     */
-    private function convertToTab($fields, $key): TabContract
+    private function convertToTab(mixed $fields, string|int $key): TabContract
     {
         if ($fields instanceof TabContract) {
             return $fields;
@@ -179,12 +139,6 @@ class Tabs extends Panel
         return new Tab($key, $fields, $this->tabsCount);
     }
 
-    /**
-     * Add fields to the Tab.
-     *
-     * @param  TabContract  $tab
-     * @return $this
-     */
     public function addFields(TabContract $tab): self
     {
         $this->tabs[] = $tab;
@@ -240,13 +194,6 @@ class Tabs extends Panel
         return $this;
     }
 
-    /**
-     * Show default Search if you need more space
-     *
-     * @param  bool  $value
-     *
-     * @return $this
-     */
     public function defaultSearch(bool $value = true): self
     {
         $this->defaultSearch = $value;
@@ -254,12 +201,6 @@ class Tabs extends Panel
         return $this;
     }
 
-    /**
-     * Whether the show the title
-     *
-     * @param bool $show
-     * @return $this
-     */
     public function showTitle(bool $show = true): self
     {
         $this->showTitle = $show;
@@ -267,11 +208,6 @@ class Tabs extends Panel
         return $this;
     }
 
-    /**
-     * Prepare the panel for JSON serialization.
-     *
-     * @return array
-     */
     public function jsonSerialize(): array
     {
         $result = array_merge(parent::jsonSerialize(), [
