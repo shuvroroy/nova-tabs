@@ -14,6 +14,7 @@ use Laravel\Nova\Contracts\ListableField;
 use Laravel\Nova\Panel;
 use function is_array;
 use function is_callable;
+use Laravel\Nova\Fields\Field;
 
 class Tabs extends Panel
 {
@@ -143,6 +144,7 @@ class Tabs extends Panel
     {
         $this->tabs[] = $tab;
 
+        /** @var Tab $tab */
         foreach ($tab->getFields() as $field) {
             if ($field instanceof Panel) {
                 $field->assignedPanel = $this;
@@ -154,6 +156,7 @@ class Tabs extends Panel
             }
 
             if ($field instanceof MergeValue) {
+                /** @var Field $field */
                 if (!isset($field->panel)) {
                     $field->assignedPanel = $this;
                     $field->panel = $this->name;
