@@ -43,7 +43,7 @@ export default {
       activeTab: '',
       selectedTab: {},
       darkModeClass: '',
-      relationFormUniqueId: '',
+      relationFormUniqueId: this.formUniqueId,
       errors: this.validationErrors,
     }
   },
